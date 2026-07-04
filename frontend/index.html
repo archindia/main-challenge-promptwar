@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderLux AI — Destination Discovery & Cultural Immersion</title>
+    <meta name="description" content="Discover destinations, hidden gems, local events, and connect with authentic cultural experiences powered by Google Gemini AI.">
+    <!-- Premium Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Particle canvas background -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <a href="#" class="nav-logo">
+            <div class="nav-logo-icon">🌍</div>
+            <span class="nav-logo-text">WanderLux AI</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#discovery">MAPS</a></li>
+            <li><a href="#hidden-gems">HIDDEN GEMS</a></li>
+            <li><a href="#stories">STORIES</a></li>
+            <li><a href="#heritage">HERITAGE</a></li>
+            <li><a href="#events">LOCAL EVENTS</a></li>
+            <li><a href="#experiences">EXPERIENCES</a></li>
+            <li><a href="#customs">CUSTOMS</a></li>
+        </ul>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span id="api-badge" class="tag" style="border-radius: var(--radius-sm); font-size: 0.75rem; pointer-events: none;">🔌 Demo Mode</span>
+            <button id="nav-key-btn" class="btn btn-outline btn-sm nav-api-btn">Configure Key</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg-orb orb-1"></div>
+        <div class="hero-bg-orb orb-2"></div>
+        <div class="hero-bg-orb orb-3"></div>
+
+        <div class="hero-content">
+            <div class="hero-badge">✨ Powered by Google Gemini AI</div>
+            <h1 class="hero-title">Experience the World, <br><span class="highlight">Like a Local</span></h1>
+            <p class="hero-subtitle">Uncover hidden marvels, listen to immersive cultural tales, track authentic community rituals, and traverse heritage sites with WanderLux AI.</p>
+            
+            <!-- Discovery Controls -->
+            <div class="hero-search">
+                <input id="search-query" type="text" placeholder="Where do you want to explore? e.g., Kyoto temples, Oaxaca cuisine..." aria-label="Search destination">
+                <select id="search-pref" class="search-select">
+                    <option value="">Any Style</option>
+                    <option value="cultural">Culture & Heritage</option>
+                    <option value="nature">Nature & Outdoors</option>
+                    <option value="culinary">Food & Gastronomy</option>
+                    <option value="adventure">Offroad Adventure</option>
+                </select>
+                <select id="search-duration" class="search-select">
+                    <option value="">Flexible Days</option>
+                    <option value="3 days">Weekend (3 Days)</option>
+                    <option value="7 days">Explorer (7 Days)</option>
+                    <option value="14 days">Immersive (14 Days)</option>
+                </select>
+                <input id="search-country" type="hidden" value="">
+                <button id="search-btn" class="btn btn-gold">Discover</button>
+            </div>
+
+            <!-- Tags -->
+            <div class="hero-tags">
+                <span class="tag" data-query="Kyoto">Kyoto, Japan</span>
+                <span class="tag" data-query="Oaxaca">Oaxaca, Mexico</span>
+                <span class="tag" data-query="Marrakech">Marrakech, Morocco</span>
+                <span class="tag" data-query="Florence">Florence, Italy</span>
+                <span class="tag" data-query="Peru Andes">Cusco, Peru</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value">195+</div>
+            <div class="stat-label">Countries Scanned</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">10,000+</div>
+            <div class="stat-label">Hidden Gems Unlocked</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">Gemini 2.0</div>
+            <div class="stat-label">AI Engine Active</div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="container">
+
+        <!-- 1. Destination Discovery Section -->
+        <section id="discovery" class="reveal">
+            <div class="section-header">
+                <div class="section-label">🗺️ Discovery</div>
+                <h2 class="section-title">Your Next Cultural Escape</h2>
+                <p class="section-subtitle">AI recommendations matching your custom style, budget, and travel length.</p>
+            </div>
+            <div id="discovery-grid" class="cards-grid">
+                <!-- Destinations will be rendered dynamically here -->
+            </div>
+        </section>
+
+        <!-- Dynamic Destination Context Header -->
+        <section id="culture-context" class="reveal" style="padding-bottom: 0;">
+            <div style="background: rgba(124,107,255,0.06); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--gold); letter-spacing: 0.1em; font-weight: 700;">Active Destination Focus</span>
+                    <h2 id="current-context-title" style="font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-top: 0.25rem;">Kyoto</h2>
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-secondary); max-width: 450px;">
+                    Select other recommendations above to dynamically swap the cultural timeline, heritage guides, and localized assistant widget details below.
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Hidden Gems Section -->
+        <section id="hidden-gems" class="reveal">
+            <div class="section-header">
+                <div class="section-label">💎 Hidden Gems</div>
+                <h2 class="section-title">Off the Beaten Path</h2>
+                <p class="section-subtitle">Skip the crowds. Traverse through secret gardens, local workshops, and forgotten sanctuaries.</p>
+            </div>
+            <div id="gems-grid" class="gems-grid">
+                <!-- Hidden Gems rendered here -->
+            </div>
+        </section>
+
+        <!-- 3. Immersive Storytelling Section -->
+        <section id="stories" class="story-section reveal">
+            <div class="section-header">
+                <div class="section-label">📖 Oral Histories</div>
+                <h2 class="section-title">Tales of the Soil</h2>
+                <p class="section-subtitle">Listen to narrative storytelling bringing history, folklore, and local atmosphere to life.</p>
+            </div>
+            
+            <div class="story-controls">
+                <select id="story-style-select" class="search-select">
+                    <option value="immersive">Immersive Sensory Narrative</option>
+                    <option value="historical">Historical & Chronicles</option>
+                    <option value="mythological">Mythology & Folktales</option>
+                    <option value="poetic">Poetic Prose</option>
+                </select>
+                <button id="story-generate-btn" class="btn btn-gold btn-sm">Rewrite Tale</button>
+            </div>
+
+            <div id="story-container">
+                <!-- Immersive story rendered here -->
+            </div>
+        </section>
+
+        <!-- 4. Heritage Promotion Section -->
+        <section id="heritage" class="reveal">
+            <div class="section-header">
+                <div class="section-label">🏛️ Heritage Spotlight</div>
+                <h2 class="section-title">Preserved Wonders</h2>
+                <p class="section-subtitle">Delve into UNESCO World Heritage, ancestral craftsmanship, and community preservation efforts.</p>
+            </div>
+            <div id="heritage-container">
+                <!-- Heritage details rendered here -->
+            </div>
+        </section>
+
+        <!-- 5. Suggest Local Events Section -->
+        <section id="events" class="events-section reveal">
+            <div class="section-header">
+                <div class="section-label">🏮 Seasonal Rhythms</div>
+                <h2 class="section-title">Local Festivals & Calendars</h2>
+                <p class="section-subtitle">Join the local community in seasonal celebrations, night bazaars, harvest rituals, and street carnivals.</p>
+            </div>
+            <div id="events-grid" class="events-grid">
+                <!-- Events rendered here -->
+            </div>
+        </section>
+
+        <!-- 6. Authentic Experiences Section -->
+        <section id="experiences" class="reveal">
+            <div class="section-header">
+                <div class="section-label">🌾 Local Encounters</div>
+                <h2 class="section-title">Immersive Activities</h2>
+                <p class="section-subtitle">Register for responsible, community-led programs like culinary classes, traditional weaving, and temple retreats.</p>
+            </div>
+            <div id="experiences-grid" class="experiences-grid">
+                <!-- Experiences rendered here -->
+            </div>
+        </section>
+
+        <!-- 7. Cultural Deep Dive (Customs & Etiquette) -->
+        <section id="customs" class="reveal">
+            <div class="section-header">
+                <div class="section-label">🤝 Social Etiquette</div>
+                <h2 class="section-title">Respect & Communication</h2>
+                <p class="section-subtitle">Travel mindfully. Learn local social cues, essential greetings, and basic cultural taboos.</p>
+            </div>
+            <div id="deep-dive-container">
+                <!-- Deep dive content rendered here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 8. Floating AI Chat Widget -->
+    <div class="chat-widget">
+        <!-- Floating chat bubble -->
+        <button id="chat-toggle-btn" class="chat-bubble-btn" aria-label="Toggle Travel Chat">
+            <div class="chat-pulse"></div>
+            💬
+        </button>
+
+        <!-- Chat Panel Window -->
+        <div id="chat-panel" class="chat-panel">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="chat-avatar">🧭</div>
+                    <div>
+                        <div class="chat-name">WanderLux Companion</div>
+                        <div class="chat-status">Travel Guide Active</div>
+                    </div>
+                </div>
+                <button id="chat-close-btn" class="chat-close">&times;</button>
+            </div>
+
+            <!-- Messages list -->
+            <div id="chat-messages" class="chat-messages">
+                <!-- Chat messages appended dynamically -->
+            </div>
+
+            <!-- Input area -->
+            <div class="chat-input-area">
+                <textarea id="chat-input" class="chat-input" placeholder="Ask about rules, food tips, itinerary..." rows="1"></textarea>
+                <button id="chat-send-btn" class="chat-send" aria-label="Send message">✈️</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Key Config Modal -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-box">
+            <h3 class="modal-title">Configure Google Gemini AI</h3>
+            <p class="modal-subtitle">To request live real-time recommendations, stories, and chat updates, enter a Google Gemini API Key.</p>
+            
+            <input id="api-key-input" type="password" class="modal-input" placeholder="AIzaSy...">
+            
+            <div class="modal-actions">
+                <button id="modal-save" class="btn btn-primary btn-full">Save Connection</button>
+                <button id="modal-close" class="btn btn-outline">Close</button>
+            </div>
+            <a href="https://aistudio.google.com" target="_blank" rel="noopener noreferrer" class="modal-link">Get a free Gemini API Key here &rarr;</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand-name">WanderLux AI</div>
+                <p class="footer-brand-desc">A premium generative AI travel planning dashboard created to promote sustainable, respectful tourism and reconnect global travelers with authentic local heritage.</p>
+            </div>
+            <div>
+                <div class="footer-col-title">Navigation</div>
+                <ul class="footer-links">
+                    <li><a href="#discovery">Discovery</a></li>
+                    <li><a href="#hidden-gems">Hidden Gems</a></li>
+                    <li><a href="#stories">Immersive Stories</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-col-title">Cultural Pillars</div>
+                <ul class="footer-links">
+                    <li><a href="#heritage">Heritage Spotlight</a></li>
+                    <li><a href="#events">Local Events</a></li>
+                    <li><a href="#customs">Etiquette Guides</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-col-title">API Connection</div>
+                <ul class="footer-links">
+                    <li><a href="https://aistudio.google.com" target="_blank">Google AI Studio</a></li>
+                    <li><a href="http://localhost:8000/docs" target="_blank">Swagger Docs</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 WanderLux AI Travel. Designed for immersive cultural exploration. Powered by Gemini.
+        </div>
+    </footer>
+
+    <!-- App JavaScript files -->
+    <script src="js/animations.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
